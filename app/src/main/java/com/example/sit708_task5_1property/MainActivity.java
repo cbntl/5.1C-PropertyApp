@@ -1,44 +1,42 @@
 package com.example.sit708_task5_1property;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
     RecyclerView recyclerView;
-    LinearLayoutManager verticalLayoutManager;
-    PropertyAdapter adapter;
+    LinearLayoutManager layoutManager;
+    PropertyAdapter propertyAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         recyclerView = findViewById(R.id.recyclerView);
-        verticalLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        adapter = new PropertyAdapter(Property.propertyList());
-        recyclerView.setLayoutManager(verticalLayoutManager);
-        recyclerView.setAdapter(adapter);
+        layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        propertyAdapter = new PropertyAdapter(Property.propertyList());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(propertyAdapter);
     }
 
-    public class PropertyAdapter extends RecyclerView.Adapter<PropertyAdapter.MyView> {
+    public class PropertyAdapter extends RecyclerView.Adapter<PropertyAdapter.viewHolder> {
         private List<Property> propertyList;
-        public class MyView
-                extends RecyclerView.ViewHolder {
+        public PropertyAdapter(List<Property> propertyList) {
+            this.propertyList = propertyList;
+        }
+        public class viewHolder extends RecyclerView.ViewHolder {
 
             TextView locationTextView,rentTextView,bedroomTextView,carParkTextView,bathroomTextView;
             ImageView imageView;
 
-            public MyView(View view) {
+            public viewHolder(View view) {
                 super(view);
                 imageView = (ImageView) view.findViewById(R.id.imageView);
                 locationTextView = (TextView) view.findViewById(R.id.locationTextView);
@@ -48,24 +46,21 @@ public class MainActivity extends AppCompatActivity {
                 bathroomTextView = (TextView) view.findViewById(R.id.bathroomTextView);
             }
         }
-        public PropertyAdapter(List<Property> propertyList) {
-            this.propertyList = propertyList;
-        }
-        @NonNull
+
         @Override
-        public PropertyAdapter.MyView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        public viewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.property_item, parent, false);
-            return new PropertyAdapter.MyView(view);
+            return new viewHolder(view);
         }
 
         @Override
-        public void onBindViewHolder(@NonNull PropertyAdapter.MyView holder, int position) {
+        public void onBindViewHolder(viewHolder holder, int index) {
             holder.imageView.setImageResource(R.drawable.image1);
-            holder.locationTextView.setText(propertyList.get(position).getLocation());
-            holder.rentTextView.setText(propertyList.get(position).getRent() + " PW");
-            holder.bedroomTextView.setText(propertyList.get(position).getBedroomCount() + " Bedroom");
-            holder.carParkTextView.setText(propertyList.get(position).getCarParkCount() + " Car park");
-            holder.bathroomTextView.setText(propertyList.get(position).getBathroomCount() + " Bathroom");
+            holder.locationTextView.setText(propertyList.get(index).getLocation());
+            holder.rentTextView.setText(propertyList.get(index).getRent()+" PW");
+            holder.bedroomTextView.setText(propertyList.get(index).getBedroomCount()+" Bedroom");
+            holder.carParkTextView.setText(propertyList.get(index).getCarParkCount()+" Car park");
+            holder.bathroomTextView.setText(propertyList.get(index).getBathroomCount()+ " Bathroom");
         }
 
         @Override

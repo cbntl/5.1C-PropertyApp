@@ -8,32 +8,14 @@ public class Property {
     private String location;
 
 
-    public Property(String location, Integer rent, Integer bedroomCount, Integer carParkCount, Integer bathroomCount) {
+    public Property(String location, Integer rentValue, Integer bedroomCount, Integer carParkCount, Integer bathroomCount) {
         this.location = location;
-        this.rent = rent;
+        this.rent = rentValue;
         this.bedroomCount = bedroomCount;
         this.carParkCount = carParkCount;
         this.bathroomCount = bathroomCount;
-
     }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public Integer getRent() {
-        return rent;
-    }
-    public Integer getBedroomCount() {
-        return bedroomCount;
-    }
-    public Integer getCarParkCount() {
-        return carParkCount;
-    }
-    public Integer getBathroomCount() {
-        return bathroomCount;
-    }
-
+    
     public static List<Property> propertyList() {
         List<Property> propertyList = new ArrayList<>();
         for (int i=0; i<3; i++) {
@@ -47,5 +29,24 @@ public class Property {
             propertyList.add(property);
         }
         return propertyList;
+    }
+    public String getLocation() {
+        return location;
+    }
+    public Integer getRent() {
+
+        return rent;
+    }
+    public Integer getBedroomCount() {
+
+        return bedroomCount;
+    }
+    public Integer getCarParkCount() {
+
+        return carParkCount;
+    }
+    public Integer getBathroomCount() {
+
+        return bathroomCount;
     }
 }
